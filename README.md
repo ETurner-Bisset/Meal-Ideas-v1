@@ -1,4 +1,4 @@
-#Meal Ideas
+# Meal Ideas
 
 A simple site for finding ideas for meals based on ingredient.
 
