@@ -389,7 +389,7 @@ body {
   border: 1px solid #0b1e1a;
   padding: 0.2rem;
   font-weight: bold;
-  margin: 0.3rem 0.3rem 0 auto;
+  margin: 0.3rem 0.5rem 0 auto;
   cursor: pointer;
 }
 .main .top-page:hover, .main .top-page:active {
