@@ -1,0 +1,35 @@
+extends base 
+
+block content
+  .search-info 
+    p(class="search-info__text")
+      | Need ideas for meals? Enter an ingredient in the search bar to see a
+      | selection of meals.
+    form.search-form(action='/ideas' method='post')
+      label(for="ingredient", class="search-form__label") Search:
+      input#ingredient(type="text", name="ingredient", class="search-form__input" placeholder='Chicken...' autocomplete='off')
+      button(class="search-form__btn" title='Search')
+        i.fa-solid.fa-question
+  main.main
+    if !recipes
+      h2.main__title-error No recipes with that ingredient found. Please try again. 
+    else
+      h2.main__title Ideas:  
+        span.main__title-highlighted= ` ${ingredient}`
+      if recipes.length === 1
+        each recipe in recipes
+          a(href=`/${recipe.strMeal}`).main__card-single 
+            h4.main__card-title= recipe.strMeal
+            .main__card-img-container 
+              img(src=`${recipe.strMealThumb}` alt=`${recipe.strMeal}`)
+      else     
+        each recipe in recipes
+          a(href=`/${recipe.strMeal}`).main__card 
+            h4.main__card-title= recipe.strMeal
+            .main__card-img-container 
+              img(src=`${recipe.strMealThumb}` alt=`${recipe.strMeal}`)
+          - if (recipes.length >= 2)
+            button.top-page#btn-top Top 
+              i.fa-solid.fa-arrow-up
+  button.top-page-scroll Top
+    i.fa-solid.fa-arrow-up

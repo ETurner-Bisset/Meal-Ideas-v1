@@ -1,0 +1,335 @@
+@import '_variables.scss';
+
+@import 'recipe.scss';
+
+@import url('https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@100..800&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  background-color: map-get($colors, background);
+  font-family: 'Playpen Sans', sans-serif;
+  color: map-get($colors, text);
+  padding-top: 3.5rem;
+  overflow-x: hidden;
+  width: 100vw;
+  position: relative;
+}
+
+@supports (display: grid) {
+  body {
+    display: grid;
+    grid-template-rows: auto auto auto fit-content(3rem);
+    grid-template-areas: 'hd' 'search' 'main' 'ft';
+    justify-items: center;
+    height: 100%;
+    padding-top: 0;
+  }
+}
+
+.backdrop {
+  position: fixed;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  visibility: hidden;
+  transition: visibility 0.6s 0s ease-out, opacity 0.6s 0s ease-out;
+}
+
+.show-backdrop {
+  opacity: 1;
+  visibility: visible;
+  transition: visibility 0s 0s ease-out, opacity 0.6s 0s ease-out;
+}
+
+.header {
+  grid-area: hd;
+  padding-bottom: 0.8rem;
+  background-color: map-get($colors, main);
+  width: 100%;
+  @include display-flex();
+  justify-content: center;
+  .header__title {
+    font-size: map-get($font-sizes, h1);
+    border-bottom: 0.2rem solid map-get($colors, text);
+    width: 90%;
+    display: inline-flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    @media (min-width: 27rem) {
+      flex-direction: row;
+      justify-content: center;
+      max-width: 24rem;
+    }
+    a {
+      @include deafultLink();
+      margin-left: 0.5rem;
+      i {
+        @include hoverActiveFunc(color, background);
+      }
+    }
+  }
+}
+
+.search-info {
+  grid-area: search;
+  width: 100%;
+  background-color: map-get($colors, main);
+  color: map-get($colors, text);
+  @include display-flex();
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 0.8rem;
+  .search-info__text {
+    margin: 0.5rem 0;
+    text-align: center;
+    width: 90%;
+    max-width: 31rem;
+  }
+  .search-form {
+    width: 90%;
+    @supports (display: grid) {
+      display: grid;
+      grid-template-columns: 17.5rem 2.5rem;
+      grid-template-rows: repeat(2, 1fr);
+      grid-template-areas:
+        'lab lab'
+        'input btn';
+      row-gap: 0.2rem;
+      justify-items: center;
+      justify-content: center;
+      @media (min-width: 27rem) {
+        grid-template-columns: 5rem 17.5rem 2.5rem;
+        grid-template-rows: 1fr;
+        grid-template-areas: 'lab input btn';
+      }
+    }
+    .search-form__label {
+      font-weight: bold;
+      font-size: map-get($font-sizes, text);
+      grid-area: lab;
+    }
+    .search-form__input {
+      grid-area: input;
+      padding: 0 0.2rem;
+      border-radius: $border-radius;
+      font-size: map-get($font-sizes, text);
+      border: none;
+      &:focus {
+        outline: none;
+      }
+    }
+    .search-form__btn {
+      grid-area: btn;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      i {
+        font-size: map-get($font-sizes, h2);
+        @include hoverActiveFunc(color, background);
+      }
+    }
+  }
+}
+
+.main {
+  grid-area: main;
+  margin: 1.5rem 0;
+  @include display-flex();
+  flex-direction: column;
+  align-items: center;
+  .main__title-highlighted {
+    text-transform: capitalize;
+    background-color: map-get($colors, main);
+    border-radius: $border-radius;
+    padding: 0 0.2rem;
+  }
+  .main__title-error {
+    text-align: center;
+    padding: 0 1rem;
+    max-width: 31rem;
+  }
+  .main__card,
+  .main__card-single {
+    margin: 2rem 0 0;
+    @include display-flex();
+    flex-direction: column;
+    align-items: center;
+    background-color: #ccc;
+    width: 100%;
+    max-width: 22rem;
+    height: 22rem;
+    max-height: 22rem;
+    @include deafultLink();
+    border-radius: $border-radius;
+    .main__card-title {
+      background-color: map-get($colors, main);
+      font-size: 1.4rem;
+      padding: 0 0.2rem;
+      border-radius: $border-radius;
+      margin: 1rem 0;
+      text-align: center;
+      @include hoverActiveFunc(color, background);
+    }
+    .main__card-img-container {
+      width: 80%;
+      min-width: 18rem;
+      height: 14rem;
+      min-height: 14rem;
+      border-radius: $border-radius;
+      border: $border;
+      @include hoverActiveFunc(border-color, main);
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .top-page {
+    background-color: transparent;
+    font-size: map-get($font-sizes, text);
+    border-radius: $border-radius;
+    border: 1px solid map-get($colors, text);
+    padding: 0.2rem;
+    font-weight: bold;
+    margin: 0.3rem 0.3rem 0 auto;
+    cursor: pointer;
+    @include hoverActiveFunc(color, main);
+    &:hover,
+    &:active {
+      border: 1px solid map-get($colors, main);
+    }
+  }
+  @media (min-width: 60rem) {
+    width: 90%;
+    max-width: 58rem;
+    @supports (display: grid) {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: 5rem 22rem;
+      grid-auto-flow: row;
+      grid-template-areas: 'title title' 'recipe recipe ';
+      row-gap: 0.8rem;
+      justify-items: center;
+      .main__title {
+        grid-area: title;
+        text-align: center;
+      }
+      .main__title-error {
+        grid-area: title;
+      }
+      .main__card,
+      .main__card-single {
+        margin: 0;
+        .main__card-img-container {
+          overflow: hidden;
+          margin-bottom: 1rem;
+        }
+      }
+      .top-page {
+        display: none;
+      }
+      .main__card-single {
+        grid-area: recipe;
+      }
+    }
+  }
+}
+
+.top-page-scroll {
+  display: none;
+}
+
+.show-top-page {
+  display: block;
+  position: fixed;
+  bottom: 2.5rem;
+  right: 0;
+  background-color: transparent;
+  font-size: map-get($font-sizes, text);
+  border-radius: $border-radius;
+  border: 1px solid map-get($colors, text);
+  padding: 0.2rem;
+  font-weight: bold;
+  margin: 0.3rem 0.3rem 0 auto;
+  cursor: pointer;
+  @include hoverActiveFunc(color, main);
+  &:hover,
+  &:active {
+    border: 1px solid map-get($colors, main);
+  }
+}
+
+.modal {
+  width: 100%;
+  background-color: map-get($colors, background);
+  height: 70%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 101;
+  transform: translateY(100%);
+  transition: transform 0.6s ease-out;
+  @include display-flex();
+  flex-direction: column;
+  align-items: center;
+  .modal__title {
+    border-bottom: 0.2rem solid map-get($colors, text);
+  }
+  .modal__text {
+    width: 90%;
+    max-width: 27rem;
+    margin: 0.5rem 0;
+    a {
+      @include hoverActiveFunc(color, text);
+    }
+  }
+  .modal__close {
+    background-color: map-get($colors, background);
+    border: none;
+    i {
+      font-size: map-get($font-sizes, h1);
+      cursor: pointer;
+      @include hoverActiveFunc(color, main);
+    }
+  }
+}
+
+.open-modal {
+  transform: translateY(0);
+}
+
+.footer {
+  grid-area: ft;
+  background-color: map-get($colors, main);
+  width: 100vw;
+  @include display-flex();
+  align-items: center;
+  justify-content: center;
+  font-size: map-get($font-sizes, text);
+  padding: 0.2rem 0;
+  .date {
+    color: map-get($colors, text);
+    .open-about {
+      background-color: map-get($colors, main);
+      margin-left: 0.5rem;
+      color: map-get($colors, background);
+      border: none;
+      cursor: pointer;
+      font-size: map-get($font-sizes, text);
+      @include hoverActiveFunc(color, text);
+    }
+  }
+}

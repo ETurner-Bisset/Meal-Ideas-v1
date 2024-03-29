@@ -1,0 +1,35 @@
+$colors: (
+  main: #f02a13,
+  background: #e6ceca,
+  text: #0b1e1a,
+);
+
+$font-sizes: (
+  h1: 3rem,
+  h2: 2rem,
+  text: 1.2rem,
+);
+
+$border-radius: 0.3rem;
+
+$border: 0.3rem solid map-get($colors, text);
+
+@mixin display-flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin hoverActiveFunc($property, $color) {
+  &:hover,
+  &:active {
+    #{$property}: map-get($colors, $color);
+  }
+}
+
+@mixin deafultLink {
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  color: map-get($colors, text);
+}

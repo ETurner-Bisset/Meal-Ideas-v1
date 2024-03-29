@@ -1,0 +1,145 @@
+@import '_variables.scss';
+
+.main-recipe {
+  width: 100vw;
+  .recipe__title {
+    background-color: map-get($colors, main);
+    font-size: 1.7rem;
+    padding: 0 0.4rem;
+    border-radius: $border-radius;
+    margin-top: 1.5rem;
+    text-align: center;
+  }
+  @supports (display: grid) {
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto auto auto auto auto;
+    row-gap: 1.5rem;
+    grid-template-areas: 'title' 'img' 'ing' 'inst' 'credit';
+    justify-items: center;
+    .recipe__title {
+      grid-area: title;
+    }
+    .recipe__img-container {
+      grid-area: img;
+      width: 18rem;
+      height: 15rem;
+      border: $border;
+      overflow: hidden;
+      position: relative;
+      @media (min-width: 45rem) {
+        width: 22rem;
+        height: 18rem;
+      }
+      .recipe__banner {
+        background-color: map-get($colors, background);
+        width: 13rem;
+        z-index: 5;
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: rotate(45deg) translate(4rem, -0.6rem);
+        .banner-text {
+          font-weight: bold;
+          text-align: center;
+          font-size: 1.2rem;
+        }
+      }
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    .recipe__ingredients {
+      grid-area: ing;
+      text-align: left;
+      width: 85%;
+      .ingredients-title {
+        font-size: 1.2rem;
+        margin-bottom: 0.3rem;
+      }
+    }
+    .recipe__instructions {
+      grid-area: inst;
+      width: 85%;
+      .instructions-title {
+        font-size: 1.2rem;
+        margin-bottom: 0.3rem;
+      }
+    }
+    .recipe__credit {
+      grid-area: credit;
+      width: 85%;
+      font-size: 1.2rem;
+      font-weight: bold;
+      p {
+        margin-bottom: 0.3rem;
+        width: 100%;
+      }
+      .credit-link {
+        margin-left: 0.2rem;
+        &:hover,
+        &:active {
+          color: map-get($colors, text);
+        }
+      }
+    }
+    .back-btn {
+      @include deafultLink();
+      font-size: map-get($font-sizes, text);
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: $border-radius;
+      border: 1px solid map-get($colors, text);
+      padding: 0.2rem;
+      margin-bottom: 0.5rem;
+      @include display-flex();
+      flex-direction: row-reverse;
+      align-items: center;
+      @include hoverActiveFunc(color, main);
+      i {
+        margin-right: 0.3rem;
+      }
+      &:hover,
+      &:active {
+        border-color: map-get($colors, main);
+      }
+    }
+  }
+  @media (min-width: 27rem) {
+    max-width: 56rem;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto auto auto auto;
+    grid-template-areas: 'title title' 'img img' 'ing inst' 'credit credit' 'back back';
+    .recipe__title {
+      grid-area: title;
+    }
+    .recipe__img-container {
+      grid-area: img;
+    }
+    .recipe__ingredients {
+      grid-area: ing;
+      .recipe__ingredients-list {
+        max-width: 13rem;
+        margin: 0 auto;
+      }
+    }
+    .recipe__instructions {
+      grid-area: inst;
+    }
+    .recipe__credit {
+      grid-area: credit;
+      width: fit-content;
+      margin: 0 auto;
+      @include display-flex();
+      p {
+        width: fit-content;
+        margin-right: 0.2rem;
+      }
+    }
+    .back-btn {
+      grid-area: back;
+    }
+  }
+}

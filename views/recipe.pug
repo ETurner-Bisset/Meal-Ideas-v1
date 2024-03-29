@@ -1,0 +1,27 @@
+extends base 
+
+mixin ingredient(name, quantity)
+  li.recipe__ingredients-list-item= `${name} ${quantity}`
+
+block content
+  main.main-recipe
+    h2.recipe__title= recipe.strMeal
+    .recipe__img-container 
+      .recipe__banner 
+        p.banner-text= recipe.strCategory 
+      img.recipe__img(src=`${recipe.strMealThumb}`, alt=`${recipe.strMeal}`)
+    .recipe__ingredients 
+      ul.recipe__ingredients-list
+        h5.ingredients-title Ingredients:
+        each item in mixedArray
+          +ingredient(item[0], item[1])
+    .recipe__instructions 
+      h5.instructions-title Instructions: 
+      p= recipe.strInstructions
+    -if (recipe.strSource)
+      .recipe__credit
+        p Credit: 
+        a.credit-link(href=`${recipe.strSource}` target='_blank')= recipe.strSource.split('/')[2] 
+    a.back-btn(href="/" title='Home') Back
+      i.fa-solid.fa-arrow-left 
+    
